@@ -42,11 +42,39 @@ li {
     width: 100%;
 }
 
+a {
+    text-decoration: none;
+
+}
+
+.container {
+    padding-top: 5px;
+    margin: 80px auto 20px auto;
+    width: 70%;
+    background-color: white;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+article {
+    margin-bottom: 10px;
+    padding: 5px 20px;
+}
+
+article p {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(106, 115, 119);
+}
 
 footer {
+    background-color: black;
+    padding: 1px;
+}
+
+footer h5 {
+    font-size: 17px;
     text-align: center;
     color: white;
-    padding: 2px;
-    background-color: black;
-    font-weight: bolder;
 }
