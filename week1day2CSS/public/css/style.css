@@ -1,0 +1,45 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url("https://gblobscdn.gitbook.com/assets%2F-LiR2ZMOIaxmhLlPQhLa%2F-LsKO0ePPOrb2KQEd7Gq%2F-LsKOnZbYN8Zs5H89ODH%2Fpattern.jpg?alt=media&token=27a7b746-8252-45a5-8df2-b1b68fb8ceae");
+}
+
+/* Style untuk navbar */
+header {
+    width: 100%;
+    height: 65px;
+    background-color: #fff;
+}
+
+img {
+    position: absolute;
+    padding: 3px;
+    float: left;
+    margin-left: 2%;
+}
+
+ul {
+    width: auto;
+    float: right;
+    margin-top: 15px;
+    margin-right: 25px;
+}
+
+li {
+    display: inline-block;
+    text-decoration: none;
+    color: mediumblue;
+    padding: 10px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
