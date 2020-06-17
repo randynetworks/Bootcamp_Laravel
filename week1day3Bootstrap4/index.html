@@ -22,31 +22,49 @@
     <title>Randy Shop</title>
   </head>
   <body>
-    <!-- navbar -->
-    <nav class="link-top navbar navbar-expand-lg navbar-light bg-light">
-      <ul class="navbar-nav justify-content-end">
-        <a class="nav-item pl-5" href="#"><li>Gift Card</li></a>
-        <a class="nav-item pl-5" href="#"><li>Track Order</li></a>
-        <a class="nav-item pl-5" href="#"><li>Contact Us</li></a>
-      </ul>
-    </nav>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <img src="public/img/logo.png" alt="" width="250px" height="80px" />
+    <!-- header -->
+    <ul class="nav justify-content-end navbar-light bg-light">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Gift Card</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Track Order</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact Us</a>
+      </li>
+    </ul>
+    <nav class="navbar navbar-light bg-light pb-4">
+      <img id="logo" src="public/img/logo.png" width="250px" />
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline my-2 my-lg-0 text-right">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-      </div>
+      <form class="form-inline">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
     </nav>
+
+    <!-- navbar -->
+    <ul class="nav justify-content-center navbar-light bg-light p-4 m-4">
+      <li class="nav-item">
+        <a class="nav-link pr-4" href="#">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pr-4" href="#">SHOP</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pr-4" href="#">BLOG</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pr-4" href="#">ABOUT US</a>
+      </li>
+    </ul>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
