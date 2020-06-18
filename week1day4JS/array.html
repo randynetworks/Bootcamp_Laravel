@@ -20,32 +20,41 @@
     <div id="jawaban2"></div>
 
     <script>
-      /* 
-            SOAL NO. 1 Balik Kalimat 
+      /*
+            SOAL NO. 1 Balik Kalimat
             Tipe data String dapat dilihat sebagai tipe data array. Kita dapat mengakses karakter-karakter pada sebuah string seperti mengakses elemen pada array.
             Buatlah sebuah fungsi dengan nama balikString(). Fungsi ini akan menerima argumen sebuah string dan mengembalikan kebalikannya.
-            
+
             Catatan: TIDAK Boleh menggunakan reverse, wajib dengan looping!
 
-            Contoh: 
-            balikString("abduh coding") 
+            Contoh:
+            balikString("abduh coding")
             akan memberikan output: "gnidoc hudba"
 
             Hint: Gunakan properti length dari string untuk mencari tahu panjang string
         */
       // Code Kamu di sini
 
+      function balikString(text) {
+        var result = "";
+
+        for (let i = text.length - 1; i >= 0; i--) {
+          result += text.charAt(i);
+        }
+        return result;
+      }
+
       // Driver Code, jangan diganggu!
       var formBalikString = document.getElementById("balikString");
       formBalikString.addEventListener("submit", function (e) {
         e.preventDefault();
-        var word = $("#word").val();
+        var word = document.querySelector("#word").value;
         var reverseWord = balikString(word);
 
         document.getElementById("jawaban1").innerHTML = reverseWord;
       });
 
-      /* 
+      /*
             SOAL NO. 2 LOOPING PADA ARRAY
             Buatlah sebuah fungsi dengan nama dataHandling() dengan sebuah parameter untuk menerima argumen. Argumen yang akan diterima adalah sebuah array yang berisi beberapa array sejumlah n. Contoh input dapat dilihat dibawah:
 
@@ -89,7 +98,21 @@
 
       // Code kamu di sini, lakukan looping terhadap input di atas
 
-      var jawaban2; // =  Isikan outputnya di sini
+      var jawaban2 = "";
+
+      for (let i = 0; i < input.length; i++) {
+        for (let j = 0; j < input.length; j++) {
+          let id = `Nomor ID : ${input[i][j]} <br>`;
+          j++;
+          let fullName = `Nama Lengkap: ${input[i][j]} <br>`;
+          j++;
+          let ttl = `TTL : ${input[i][j]} ${input[i][j + 1]}<br>`;
+          j += 2;
+          let hobi = `Hobi: ${input[i][j]} <br><br>`;
+
+          jawaban2 += id + fullName + ttl + hobi; // =  Isikan outputnya di sini
+        }
+      }
 
       document.getElementById("jawaban2").innerHTML = jawaban2;
     </script>
