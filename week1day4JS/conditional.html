@@ -58,6 +58,7 @@
       // buatlah kondisional berdasarkan dua variabel di atas yaitu name dan role, ketentuannya dapat dibaca di atas
 
       var jawabanKonsol; // = jawaban dari kondisional di-assign di sini
+      var welcomeSay = "Selamat datang di Dunia Werewolf";
       if (name == "" && role == "") {
         jawabanKonsol = "Nama harus diisi!";
       } else if (name != "") {
@@ -65,26 +66,11 @@
           jawabanKonsol =
             "Halo " + name + ", Pilih peranmu untuk memulai game!";
         } else if (role == "Penyihir" || role == "penyihir") {
-          jawabanKonsol =
-            "Selamat datang di Dunia Werewolf, " +
-            name +
-            "<br>Halo Penyihir " +
-            name +
-            ", kamu dapat melihat siapa yang menjadi Werewolf!";
+          jawabanKonsol = `${welcomeSay}, ${name}! <br>Hallo Penyihir ${name}, kamu dapat melihat siapa yang menjadi Werewolf!`;
         } else if (role == "Werewolf" || role == "werewolf") {
-          jawabanKonsol =
-            "Selamat datang di Dunia Werewolf, " +
-            name +
-            "<br>Halo Werewolf " +
-            name +
-            ", kamu dapat memilih siapa untuk dimakan malam ini!";
+          jawabanKonsol = `${welcomeSay}, ${name}! <br>Hallo Werewolf ${name}, kamu dapat memilih siapa untuk dimakan malam ini!`;
         } else if (role == "Rakjel" || role == "rakjel") {
-          jawabanKonsol =
-            "Selamat datang di Dunia Werewolf, " +
-            name +
-            "<br>Halo Rakjel " +
-            name +
-            ", Kamu menjadi rakyat jelata ";
+          jawabanKonsol = `${welcomeSay}, ${name}! <br>Hallo Rakjel ${name}, Kamu menjadi rakyat jelata!`;
         } else {
           jawabanKonsol = "Engga ada role yang kamu pilih";
         }
