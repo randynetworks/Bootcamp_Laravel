@@ -1,117 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Latihan DOM</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
-      integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">Mini Ecommerce</a>
-        <form class="form-inline" id="formItem">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            id="keyword"
-            aria-label="Search"
-          />
-          <button
-            class="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-            id="searchItem"
-          >
-            Search
-          </button>
-        </form>
-        <button class="btn btn-primary" id="cart">
-          <i class="fas fa-shopping-cart"></i>(0)
-        </button>
-      </nav>
-      <div class="row">
-        <div class="card-deck col-md-12 mt-2" id="listBarang">
-          <script>
-            var items = [
-              [
-                "001",
-                "Keyboard Logitek",
-                60000,
-                "Keyboard yang mantap untuk kantoran",
-                "logitek.jpg",
-              ],
-              [
-                "002",
-                "Keyboard MSI",
-                300000,
-                "Keyboard gaming MSI mekanik",
-                "msi.jpg",
-              ],
-              [
-                "003",
-                "Mouse Genius",
-                50000,
-                "Mouse Genius biar lebih pinter",
-                "genius.jpeg",
-              ],
-              [
-                "004",
-                "Mouse Jerry",
-                30000,
-                "Mouse yang disukai kucing",
-                "jerry.jpg",
-              ],
-            ];
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Latihan DOM</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+    integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand">Mini Ecommerce</a>
+      <form class="form-inline" id="formItem">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" id="keyword" aria-label="Search" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchItem">
+          Search
+        </button>
+      </form>
+      <button class="btn btn-primary" id="cart">
+        <i class="fas fa-shopping-cart"></i> (<span id="total"></span>)
+      </button>
+    </nav>
+    <div class="row">
+      <div class="card-deck col-md-12 mt-5" id="listBarang">
+        <script>
+          // deklarasi variable + get element
+          var listBarang = document.getElementById("listBarang");
+          var formItem = document.getElementById("formItem");
+          var searchItem = document.getElementById("keyword");
+
+
+          // array data
+          var items = [
+            [
+              "001",
+              "Keyboard Logitek",
+              60000,
+              "Keyboard yang mantap untuk kantoran",
+              "logitek.jpg",
+            ],
+            [
+              "002",
+              "Keyboard MSI",
+              300000,
+              "Keyboard gaming MSI mekanik",
+              "msi.jpg",
+            ],
+            [
+              "003",
+              "Mouse Genius",
+              50000,
+              "Mouse Genius biar lebih pinter",
+              "genius.jpeg",
+            ],
+            [
+              "004",
+              "Mouse Jerry",
+              30000,
+              "Mouse yang disukai kucing",
+              "jerry.jpg",
+            ],
+          ];
+          // tampil data keseluruhan
+          function data(items) {
             var card = "";
+
+            const formatter = new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 2
+            })
 
             for (let i = 0; i < items.length; i++) {
               card += `
-                        <div class="card" style="max-width: 18rem; max-height: 40rem;">
-                          <img src="public/img/${items[i][4]}" class="img-fluid card-img-top" alt="Gambar ${items[i][3]} "/>
-                          <div class="card-body">
-                            <h5 class="card-title" id="itemName">${items[i][1]}</h5>
-                            <p class="card-text" id="itemDesc">${items[i][3]}</p>
-                            <p class="card-text">Rp ${items[i][2]}</p>
-                            <a href="#" class="btn btn-primary" id="addCart"
-                              >Tambahkan ke keranjang</a
-                            >
-                          </div>
-                        </div>`;
+              <div class="card shadow" style="max-width: 18rem;">
+                <img src="public/img/${items[i][4]}" class="img-fluid card-img-top p-3" alt="Gambar ${items[i][3]} "/>
+                <div class="card-body">
+                    <h5 class="card-title" id="itemName">${items[i][1]}</h5>
+                    <p class="card-text" id="itemDesc">${items[i][3]}</p>
+                    <p class="card-text">${formatter.format(items[i][2])}</p>
+                    <a href="#" class="btn btn-primary" id="addCart" onclick="add()">Tambahkan ke keranjang</a>
+                </div>
+              </div>`;
             }
 
-            document.getElementById("listBarang").innerHTML = card;
-          </script>
-        </div>
+            return listBarang.innerHTML = card;
+          }
+
+          // search data
+
+          formItem.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let listItem = [];
+            for (let i = 0; i < items.length; i++) {
+              let x = 0;
+              for (let j = 0; j < items[i].length; j++) {
+                item = items[i][j].toString().toLowerCase()
+                if (item.indexOf(searchItem.value.toLowerCase()) != -1)
+                  x++;
+              }
+              if (x > 0) listItem.push(items[i]);
+            }
+
+            listBarang.innerHTML = data(listItem);
+          });
+          listBarang.innerHTML = data(items);
+
+
+          // menambah value ke keranjang
+
+          var addValue = 0;
+
+          function add() {
+            addValue += 1;
+            document.getElementById("total").innerHTML = addValue;
+          }
+        </script>
       </div>
+
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+</body>
+
 </html>
