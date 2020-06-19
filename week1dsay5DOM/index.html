@@ -24,7 +24,7 @@
         </button>
       </form>
       <button class="btn btn-primary" id="cart">
-        <i class="fas fa-shopping-cart"></i> (<span id="total"></span>)
+        <i class="fas fa-shopping-cart"></i> (<span id="total">0</span>)
       </button>
     </nav>
     <div class="row">
@@ -80,12 +80,16 @@
             for (let i = 0; i < items.length; i++) {
               card += `
               <div class="card shadow" style="max-width: 18rem;">
-                <img src="public/img/${items[i][4]}" class="img-fluid card-img-top p-3" alt="Gambar ${items[i][3]} "/>
+                <div style="width:250px; height: 200px;" class="p-3 mb-3">
+                  <img src="public/img/${items[i][4]}" class="card-img-top" alt="Gambar ${items[i][3]} "/>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title" id="itemName">${items[i][1]}</h5>
                     <p class="card-text" id="itemDesc">${items[i][3]}</p>
                     <p class="card-text">${formatter.format(items[i][2])}</p>
-                    <a href="#" class="btn btn-primary" id="addCart" onclick="add()">Tambahkan ke keranjang</a>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-danger btn-block mt-auto" id="addCart" onclick="add()"><i class="fas fa-shopping-cart"></i> Add To Cart!</a>
                 </div>
               </div>`;
             }
