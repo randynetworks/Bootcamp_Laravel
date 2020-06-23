@@ -49,16 +49,29 @@
         */
 
     // Code function di sini 
-    function reverseString($name)
+    function reverseString($text)
     {
-        
+        $text = str_split($text);
+        $result = "";
+
+        for ($i = count($text) - 1; $i >= 0; $i--) {
+            $result .= $text[$i];
+        }
+
+        return $result;
+        // $len = strlen($text);
+        // for ($i = $len - 1; $i >= 0; $i--) {
+        //     echo  $text[$i];
+        // }
     }
 
 
     // Hapus komentar di bawah ini untuk jalankan Code
-    // reverseString("abduh");
-    // reverseString("Sanbercode");
-    // reverseString("We Are Sanbers Developers")
+    echo reverseString("abduh");
+    echo "<br>";
+    echo reverseString("Sanbercode");
+    echo "<br>";
+    echo reverseString("We Are Sanbers Developers");
     echo "<br>";
 
     echo "<h3>Soal No 3 Palindrome </h3>";
@@ -78,12 +91,18 @@
 
 
     // Code function di sini
+    function palindrome($text)
+    {
+        $rev = reverseString($text);
+        echo $rev;
+        echo ($text == $rev) ? " : true<br>" : " : false<br>";
+    }
 
     // Hapus komentar di bawah ini untuk jalankan code
-    // palindrome("civic") ; // true
-    // palindrome("nababan") ; // true
-    // palindrome("jambaban"); // false
-    // palindrome("racecar"); // true
+    palindrome("civic"); // true
+    palindrome("nababan"); // true
+    palindrome("jambaban"); // false
+    palindrome("racecar"); // true
     ?>
 </body>
 
