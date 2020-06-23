@@ -74,8 +74,7 @@
     // Lakukan Looping di sini
     $rest[] = "";
 
-    foreach ($numbers as $number) 
-    {
+    foreach ($numbers as $number) {
         array_push($rest, $number % 5);
     }
     echo "<br>";
@@ -107,8 +106,42 @@
 
     // Output: 
 
-    for ($i=0; $i < ; $i++) { 
-        # code...
+    $items = [
+        [
+            'id' => '001',
+            'name' => 'Keyboard Logitek',
+            'price' => 60000,
+            'description' => 'Keyboard yang mantap untuk kantoran',
+            'source' => 'logitek.jpeg'
+        ],
+        [
+            'id' => '002',
+            'name' => 'Keyboard MSI',
+            'price' => 300000,
+            'description' => 'Keyboard gaming MSI mekanik',
+            'source' => 'msi.jpeg'
+        ],
+        [
+            'id' => '003',
+            'name' => 'Mouse Genius',
+            'price' => 50000,
+            'description' => 'Mouse Genius biar lebih pinter',
+            'source' => 'genius.jpeg'
+        ],
+        [
+            'id' => '004',
+            'name' => 'Mouse Jerry',
+            'price' => 30000,
+            'description' => 'Mouse yang disukai kucing',
+            'source' => 'jerry.jpeg'
+        ]
+    ];
+
+    // Output: 
+    foreach ($items as $j) {
+
+        print_r($j);
+        echo "<br>";
     }
 
     echo "<h3>Soal No 4 Asterix </h3>";
@@ -125,6 +158,13 @@
         */
     echo "Asterix: ";
     echo "<br>";
+    for ($i = 1; $i <= 5; $i++) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo "*";
+        }
+        echo "<br>";
+    }
+
     ?>
 
 </body>
