@@ -11,15 +11,15 @@ class Animal
     }
 
     public function getName(){
-        return $this->name;
+        return $this->name. "<br>";
     }
 
     public function getLegs(){
-        return $this->legs;
+        return $this->legs. "<br>";
     }
 
     public function getCold_Blooded(){
-        return (boolval($this->cold_blooded)? 'True' : 'False');
+        return (boolval($this->cold_blooded)? 'True<br>' : 'False.<br>');
     }
 
 
