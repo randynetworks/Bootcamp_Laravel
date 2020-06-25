@@ -1,6 +1,32 @@
 <?php
-function skor_terbesar($arr){
-//kode di sini
+function skor_terbesar($arr)
+{
+  //kode di sini
+  $result = [];
+  $i = 0;
+
+  while ($i < count($arr)) {
+    if ($arr[$i]["nilai"] > 84) {
+      $result[$i] = array(
+        "<br>" . "nama"  => $arr[$i]['nama'] . "<br>",
+        "<br>" . "kelas" => $arr[$i]['kelas'] . "<br>",
+        "<br>" . "nilai" => $arr[$i]['nilai'] . "<br>"
+      );
+    }
+
+    // usort($arr, function ($item1, $item2) {
+    //   return $item2['nilai'] <=> $item1['nilai'];
+    // });
+    $i++;
+    $nilai = array();
+    foreach ($arr as $key => $row) {
+      $nilai[$key - 1] = $row['nilai'];
+    }
+    array_multisort($nilai, SORT_ASC, $arr);
+  }
+
+
+  return $result;
 }
 
 // TEST CASES
@@ -55,4 +81,3 @@ print_r(skor_terbesar($skor));
                 )
   )
 */
-?>
