@@ -1,0 +1,22 @@
+CREATE TABLE custumers (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,);
+
+CREATE TABLE orders (
+id INT AUTO_INCREMENT PRIMARY KEY,
+amount VARCHAR(255) NOT NULL,
+custumer_id INT NOT NULL,
+FOREIGN KEY (custumer_id)
+REFERENCES (custumers.id));
+
+
+INSERT INTO `custumers`
+(`id`, `name`, `email`, `password`)
+VALUES (NULL, 'John Doe', 'john@doe.com', 'john123'),
+(NULL, 'Jane Doe', 'Jane@doe.com', 'jenita123');
+
+INSERT INTO `orders`
+(`id`, `amount`, `custumer_id`)
+VALUES (NULL, 500,1), (NULL, 200,2),(NULL, 750,2),(NULL, 250,1),(NULL, 400,1);
