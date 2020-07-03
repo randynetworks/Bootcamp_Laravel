@@ -74,7 +74,7 @@ class PertanyaanController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('edit', compact('question'));
+        return view('edit_question', compact('question'));
     }
 
     /**

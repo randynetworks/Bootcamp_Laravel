@@ -29,23 +29,33 @@
                     @foreach ($questions as $question)
 
                     <h5>{{$question->judul}}
-                        <a href="/pertanyaan/{{$question->id}}/edit" class="badge badge-pill badge-primary"><i class="far fa-edit"></i></a>
+                        <a href="/pertanyaan/{{$question->id}}/edit" class="badge badge-pill badge-primary"><i
+                                class="far fa-edit"></i></a>
                         <form action="/pertanyaan/{{$question->id}}" method="POST" class="d-inline">
                             @method('delete')
                             @csrf
                             <button class="badge badge-pill badge-danger"><i class="far fa-trash-alt"></i></button>
+                        </form>
                     </h5>
 
-                    </form>
                     <p>{{$question->isi}}</p>
                     <p class="text-muted">{{$question->created_at->format('D M Y, H:i')}}</p>
                     <h6 class="text-right">- Komentar -</h6>
 
                     @foreach ($answers as $answer)
                     @if ($answer->id_question == $question->id)
+                    <p class="text-muted text-right blockquote-footer">{{$answer->isi}} - at {{$question->created_at->format('D M Y')}}</p>
+                    <a href="/jawaban/{{$answer->id}}/edit" class="badge badge-pill badge-primary"><i
+                        class="far fa-edit"></i></a>
+                    <form action="/jawaban/{{$answer->id}}" method="POST" class="d-inline">
+                        <span>
+                            @method('delete')
+                            @csrf
+                            <button class="badge badge-pill badge-danger text-right"><i class="far fa-trash-alt"></i></button>
+                        </span>
+                    </form>
+                    <hr>
 
-                    <p class="text-muted text-right blockquote-footer">{{$answer->isi}} - at
-                        {{$question->created_at->format('D M Y')}}</p>
 
                     @endif
                     @endforeach

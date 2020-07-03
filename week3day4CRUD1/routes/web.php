@@ -22,4 +22,9 @@ Route::post('/pertanyaan', 'PertanyaanController@store');
 Route::delete('/pertanyaan/{question}', 'PertanyaanController@destroy');
 Route::get('/pertanyaan/{question}/edit', 'PertanyaanController@edit');
 Route::patch('/pertanyaan/{question}', 'PertanyaanController@update');
+
+
 Route::post('/jawaban', 'JawabanController@store');
+Route::get('/jawaban/{answer}/edit', 'JawabanController@edit');
+Route::patch('/jawaban/{answer}', 'JawabanController@update');
+Route::delete('/jawaban/{answer}', 'JawabanController@destroy');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Question;
 use Illuminate\Http\Request;
 
 class JawabanController extends Controller
@@ -59,9 +60,9 @@ class JawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Answer $answer)
     {
-        //
+        return view('edit_answer', compact('answer'));
     }
 
     /**
@@ -71,9 +72,16 @@ class JawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Answer $answer)
     {
-        //
+        // validasi
+        $request->validate([
+            'isi' => 'required'
+        ]);
+        Answer::where('id', $answer->id)->update([
+            'isi' => $request->isi
+        ]);
+        return redirect('/pertanyaan')->with('status', 'Jawaban Diubah!!');
     }
 
     /**
@@ -82,8 +90,9 @@ class JawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Answer $answer)
     {
-        //
+        Answer::destroy($answer->id);
+        return redirect('/pertanyaan')->with('status', 'jawaban Dihapus!!');
     }
 }
