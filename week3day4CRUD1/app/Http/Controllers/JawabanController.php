@@ -34,6 +34,12 @@ class JawabanController extends Controller
      */
     public function store(Request $request)
     {
+
+        // validasi
+        $request->validate(['isi' => 'required']);
+        // insert data
+        Answer::create($request->all());
+        return redirect('/pertanyaan')->with('status', 'Jawaban dikirim!!');
     }
 
     /**

@@ -38,7 +38,7 @@
     <div class="container">
         <div class="row justify-content-center mb-3">
             <div class="col-lg-12">
-                <div class="mt-3 card-deck row m-0 justify-content-center shadow">
+                <div class="my-3 card-deck row m-0 justify-content-center shadow">
                     <div class="card-body text-center">
                         <h1 class="p-3 display-4">Larahub | Forum</h1>
                         <div class="links">
@@ -48,8 +48,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12">
+            @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                        @endif
+            </div>
             <div class="col-lg-8">
-                <div class="mt-3 card-deck row m-0 justify-content-center shadow">
+                <div class="card-deck row m-0 justify-content-center shadow">
                     <div class="card-body">
                         <h3>Daftar Pertanyaan.</h3>
                         <hr>
@@ -60,8 +67,8 @@
                         <p class="text-muted">{{$question->created_at->format('D M Y, H:i')}}</p>
                         <h6 class="text-right">- Komentar -</h6>
                         @foreach ($answers as $answer)
-                            @if ($answer->id == $question->id)
-                            <p class="text-muted text-right blockquote-footer">{{$answer->isi}}</p>
+                            @if ($answer->id_question == $question->id)
+                            <p class="text-muted text-right blockquote-footer">{{$answer->isi}} - at {{$question->created_at->format('D M Y')}}</p>
                             @endif
                         @endforeach
                         <div class="text-right">
@@ -75,7 +82,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="isi">Isi Jawaban</label>
-                                <input type="text" name="id" value="{{$question->id}}" hidden>
+                                <input type="text" name="id_question" value="{{$question->id}}" hidden>
                                 <input type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
                                     name="isi" placeholder="Masukan Jawaban kamu!">
                                 @error('isi')
@@ -94,14 +101,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="mt-3 card-deck row m-0 justify-content-center shadow">
+                <div class="card-deck row m-0 justify-content-center shadow">
                     <div class="card-body">
                         <h3>Buat Pertanyaan.</h3>
-                        @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                        @endif
+
                         {{-- form --}}
                         <form method="POST" action="/pertanyaan">
                             @csrf
