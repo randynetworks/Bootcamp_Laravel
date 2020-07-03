@@ -17,24 +17,26 @@
         }
 
         .card-deck {
-            background: rgba(250,250,250,1);
+            background: rgba(250, 250, 250, 1);
             border-radius: 15px;
         }
-        .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+
+        .links>a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
             <div class="col-lg-12">
                 <div class="mt-3 card-deck row m-0 justify-content-center shadow">
                     <div class="card-body text-center">
@@ -49,13 +51,44 @@
             <div class="col-lg-8">
                 <div class="mt-3 card-deck row m-0 justify-content-center shadow">
                     <div class="card-body">
-                        <h3>Daftar Pertanyaan.</h3><hr>
+                        <h3>Daftar Pertanyaan.</h3>
+                        <hr>
                         @foreach ($questions as $question)
 
                         <h5>{{$question->judul}}</h5>
                         <p>{{$question->isi}}</p>
-                            <a href="" class="btn btn-success">Jawab Pertanyaan</a>
-                            <hr>
+                        <p class="text-muted">{{$question->created_at->format('D M Y, H:i')}}</p>
+                        <h6 class="text-right">- Komentar -</h6>
+                        @foreach ($answers as $answer)
+                            @if ($answer->id == $question->id)
+                            <p class="text-muted text-right blockquote-footer">{{$answer->isi}}</p>
+                            @endif
+                        @endforeach
+                        <div class="text-right">
+                            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#collapse{{$question->id}}" aria-expanded="false" aria-controls="collapse{{$question->id}}">
+                                Tanggapi Pertanyaan!
+                              </button>
+                            </p>
+                            <div class="collapse" id="collapse{{$question->id}}">
+                              {{-- form --}}
+                        <form method="POST" action="/jawaban">
+                            @csrf
+                            <div class="form-group">
+                                <label for="isi">Isi Jawaban</label>
+                                <input type="text" name="id" value="{{$question->id}}" hidden>
+                                <input type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
+                                    name="isi" placeholder="Masukan Jawaban kamu!">
+                                @error('isi')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm">Jawab Pertanyaan!</button>
+                        </form>
+                            </div>
+                        </div>
+                        <hr>
                         @endforeach
                     </div>
                 </div>
@@ -64,17 +97,36 @@
                 <div class="mt-3 card-deck row m-0 justify-content-center shadow">
                     <div class="card-body">
                         <h3>Buat Pertanyaan.</h3>
-                        <form>
+                        @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                        @endif
+                        {{-- form --}}
+                        <form method="POST" action="/pertanyaan">
+                            @csrf
                             <div class="form-group">
-                              <label for="judul">Judul Pertanyaan</label>
-                              <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukan Judul Pertanyaan">
+                                <label for="judul">Judul Pertanyaan</label>
+                                <input type="text" class=" @error('judul') is-invalid @enderror form-control" id="judul"
+                                    name="judul" placeholder="Masukan Judul Pertanyaan">
+                                @error('judul')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
                             </div>
                             <div class="form-group">
-                              <label for="isi">Isi Pertanyaan</label>
-                              <textarea type="text" class="form-control" id="isi" name="isi" placeholder="Masukan Pertanyaan kamu!"></textarea>
+                                <label for="isi">Isi Pertanyaan</label>
+                                <textarea type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
+                                    name="isi" placeholder="Masukan Pertanyaan kamu!"></textarea>
+                                @error('isi')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
+                            <button type="submit" class="btn btn-primary">Buat Pertanyaan!</button>
+                        </form>
                     </div>
                 </div>
             </div>

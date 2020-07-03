@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/pertanyaan', 'PertanyaanController@index');
+Route::post('/pertanyaan', 'PertanyaanController@store');
+Route::post('/jawaban', 'JawabanController@index');
