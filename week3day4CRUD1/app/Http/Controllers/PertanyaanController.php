@@ -72,9 +72,9 @@ class PertanyaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        return view('edit', compact('question'));
     }
 
     /**
@@ -84,9 +84,18 @@ class PertanyaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Question $question)
     {
-        //
+        // validasi
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required'
+        ]);
+        Question::where('id', $question->id)->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi
+        ]);
+        return redirect('/pertanyaan')->with('status', 'Pertanyaan Diubah!!');
     }
 
     /**
