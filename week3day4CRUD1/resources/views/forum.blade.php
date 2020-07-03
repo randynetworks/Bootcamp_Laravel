@@ -49,11 +49,11 @@
                 </div>
             </div>
             <div class="col-lg-12">
-            @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                        @endif
+                @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+                @endif
             </div>
             <div class="col-lg-8">
                 <div class="card-deck row m-0 justify-content-center shadow">
@@ -62,37 +62,47 @@
                         <hr>
                         @foreach ($questions as $question)
 
-                        <h5>{{$question->judul}}</h5>
+                        <h5>{{$question->judul}}
+                            <button class="badge badge-pill badge-primary" data-toggle="modal"
+                                data-target="#editPertanyaan"><i class="far fa-edit"></i></button>
+                            <form action="/pertanyaan/{{$question->id}}" method="POST" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="badge badge-pill badge-danger"><i class="far fa-trash-alt"></i></button></h5>
+                            </form>
                         <p>{{$question->isi}}</p>
                         <p class="text-muted">{{$question->created_at->format('D M Y, H:i')}}</p>
                         <h6 class="text-right">- Komentar -</h6>
                         @foreach ($answers as $answer)
-                            @if ($answer->id_question == $question->id)
-                            <p class="text-muted text-right blockquote-footer">{{$answer->isi}} - at {{$question->created_at->format('D M Y')}}</p>
-                            @endif
+                        @if ($answer->id_question == $question->id)
+                        <p class="text-muted text-right blockquote-footer">{{$answer->isi}} - at
+                            {{$question->created_at->format('D M Y')}}</p>
+                        @endif
                         @endforeach
                         <div class="text-right">
-                            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#collapse{{$question->id}}" aria-expanded="false" aria-controls="collapse{{$question->id}}">
+                            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse"
+                                data-target="#collapse{{$question->id}}" aria-expanded="false"
+                                aria-controls="collapse{{$question->id}}">
                                 Tanggapi Pertanyaan!
-                              </button>
+                            </button>
                             </p>
                             <div class="collapse" id="collapse{{$question->id}}">
-                              {{-- form --}}
-                        <form method="POST" action="/jawaban">
-                            @csrf
-                            <div class="form-group">
-                                <label for="isi">Isi Jawaban</label>
-                                <input type="text" name="id_question" value="{{$question->id}}" hidden>
-                                <input type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
-                                    name="isi" placeholder="Masukan Jawaban kamu!">
-                                @error('isi')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-sm">Jawab Pertanyaan!</button>
-                        </form>
+                                {{-- form --}}
+                                <form method="POST" action="/jawaban">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="isi">Isi Jawaban</label>
+                                        <input type="text" name="id_question" value="{{$question->id}}" hidden>
+                                        <input type="text" class="form-control  @error('isi') is-invalid @enderror "
+                                            id="isi" name="isi" placeholder="Masukan Jawaban kamu!">
+                                        @error('isi')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Jawab Pertanyaan!</button>
+                                </form>
                             </div>
                         </div>
                         <hr>
@@ -111,7 +121,7 @@
                             <div class="form-group">
                                 <label for="judul">Judul Pertanyaan</label>
                                 <input type="text" class=" @error('judul') is-invalid @enderror form-control" id="judul"
-                                    name="judul" placeholder="Masukan Judul Pertanyaan">
+                                    name="judul" placeholder="Masukan Judul Pertanyaan" value="{{old('judul')}}">
                                 @error('judul')
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -121,7 +131,7 @@
                             <div class="form-group">
                                 <label for="isi">Isi Pertanyaan</label>
                                 <textarea type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
-                                    name="isi" placeholder="Masukan Pertanyaan kamu!"></textarea>
+                                    name="isi" placeholder="Masukan Pertanyaan kamu!" value="{{old('isi')}}"></textarea>
                                 @error('isi')
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -131,6 +141,48 @@
                             <button type="submit" class="btn btn-primary">Buat Pertanyaan!</button>
                         </form>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- modal --}}
+    <div class="modal fade" id="editPertanyaan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Pertanyaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{-- form --}}
+                    <form method="POST" action="/pertanyaan">
+                        @csrf
+                        <div class="form-group">
+                            <label for="judul">Judul Pertanyaan</label>
+                            <input type="text" class=" @error('judul') is-invalid @enderror form-control" id="judul"
+                                name="judul" placeholder="Masukan Judul Pertanyaan">
+                            @error('judul')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="isi">Isi Pertanyaan</label>
+                            <textarea type="text" class="form-control  @error('isi') is-invalid @enderror " id="isi"
+                                name="isi" placeholder="Masukan Pertanyaan kamu!"></textarea>
+                            @error('isi')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Pertanyaan!</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -147,6 +199,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
     </script>
+    <script src="https://kit.fontawesome.com/d7573f2700.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
